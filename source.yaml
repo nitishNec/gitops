@@ -17,6 +17,7 @@ metadata:
 spec:
   path: ./policies
   approvePlan: "auto"
+  disableDriftDetection: true
   interval: 2m
   vars:
   - name: cluster_name
