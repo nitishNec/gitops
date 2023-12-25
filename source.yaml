@@ -8,3 +8,23 @@ spec:
   url: https://github.com/nitishNec/gitops
   ref:
     branch: main
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha1
+kind: Terraform
+metadata:
+  name: iam-policy
+  namespace: flux-system
+spec:
+  path: ./policies
+  approvePlan: "auto"
+  interval: 2m
+  vars:
+  - name: cluster_name
+    value: karpenter
+  varsFrom:
+  - kind: Secret
+    name: aws-credentials
+  sourceRef:
+    kind: GitRepository
+    name: helloworld
+    namespace: flux-system
