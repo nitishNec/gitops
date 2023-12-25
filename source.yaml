@@ -1,4 +1,4 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
   name: helloworld
@@ -18,14 +18,20 @@ spec:
   path: ./policies
   approvePlan: "auto"
   disableDriftDetection: true
-  interval: 2m
+  force: true
+  interval: 20s
   vars:
   - name: cluster_name
     value: karpenter
-  varsFrom:
-  - kind: Secret
-    name: aws-credentials
+#  varsFrom:
+#  - kind: Secret
+#    name: aws-credentials
   sourceRef:
     kind: GitRepository
     name: helloworld
     namespace: flux-system
+  runnerPodTemplate:
+    spec:
+      envFrom:
+      - secretRef:
+          name: aws-credentials
