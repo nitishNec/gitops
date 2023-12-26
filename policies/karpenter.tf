@@ -54,7 +54,8 @@ resource "aws_iam_role_policy" "karpenter_controller" {
           "ec2:DescribeSubnets",
           "ec2:DescribeInstanceTypes",
           "ec2:DescribeInstanceTypeOfferings",
-          "ssm:GetParameter"
+          "ssm:GetParameter",
+          "s3:PutObject"
         ]
         Effect   = "Allow"
         Resource = "*"
